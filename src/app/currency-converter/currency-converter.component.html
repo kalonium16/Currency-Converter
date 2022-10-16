@@ -1,0 +1,60 @@
+<div class="converter">
+  <form [formGroup]="converter" class="grid">
+    <div>
+      <div class="select">
+        <select
+          name="firstCurrency"
+          id="firstCurrency"
+          formControlName="firstCurrency"
+          class="select-box item"
+          (change)="setSecondCurrency()"
+        >
+          <option value="UAH">UAH</option>
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+        </select>
+      </div>
+      <input
+        id="firstCurrencyAmount"
+        type="number"
+        formControlName="firstCurrencyAmount"
+        class="form__input item"
+        step=".001"
+        (input)="setSecondCurrency()"
+      />
+      <p>
+        {{ 1 }} {{ converter.getRawValue().firstCurrency }} =
+        {{ exchengeRate | number: "1.1-4" }}
+        {{ converter.getRawValue().secondCurrency }}
+      </p>
+    </div>
+    <div>
+      <div class="select">
+        <select
+          name="secondCurrency"
+          id="secondCurrency"
+          formControlName="secondCurrency"
+          class="select-box item"
+          (change)="setSecondCurrency()"
+        >
+          <option value="UAH">UAH</option>
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+        </select>
+      </div>
+      <input
+        id="secondCurrencyAmount"
+        type="number"
+        formControlName="secondCurrencyAmount"
+        class="form__input item"
+        (input)="setFirstCurrency()"
+        step=".001"
+      />
+      <p>
+        {{ 1 }} {{ converter.getRawValue().secondCurrency }} =
+        {{ exchengeRate | switchCurrency | number: "1.1-4" }}
+        {{ converter.getRawValue().firstCurrency }}
+      </p>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,11 @@
+<div class="header">
+  <a><div class="logo">Currency Convertor</div></a>
+  <div class="exchane-rate header-right">
+    {{ 1 | currency }} :
+    {{ currencyExchangeRate.rates.USD | switchCurrency | currency: "UAH":"₴" }}
+  </div>
+  <div class="exchane-rate header-right">
+    {{ 1 | currency: "EUR" }} :
+    {{ currencyExchangeRate.rates.EUR | switchCurrency | currency: "UAH":"₴" }}
+  </div>
+</div>
