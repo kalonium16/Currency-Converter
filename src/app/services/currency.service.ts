@@ -5,7 +5,7 @@ import {
   currencyExchangeRateApiRes,
   emptyCurrencyExchangeRateApiRes,
 } from '../types/currencyExchangeRateApiRes';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +13,9 @@ import { Subject } from 'rxjs';
 export class CurrencyService {
   apiKey = '9RJi0H09QYcrUHJwvWYMmshbqdLXwXJ6';
   currencyExchangeRate = emptyCurrencyExchangeRateApiRes();
-  currencySubject = new Subject<currencyExchangeRateApiRes>();
+  currencySubject = new BehaviorSubject<currencyExchangeRateApiRes>(
+    emptyCurrencyExchangeRateApiRes()
+  );
 
   constructor(private http: HttpClient) {}
 

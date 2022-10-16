@@ -178,7 +178,7 @@ interface Rates {
 
 export function emptyCurrencyExchangeRateApiRes(): currencyExchangeRateApiRes {
   return {
-    success: true,
+    success: false,
     timestamp: 1665833644,
     base: 'UAH',
     date: '2022-10-15',

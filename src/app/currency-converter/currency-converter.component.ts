@@ -18,23 +18,26 @@ export class CurrencyConverterComponent implements OnInit, OnDestroy {
     secondCurrency: new FormControl('USD'),
     secondCurrencyAmount: new FormControl(1),
   });
-  subscription: Subscription = new Subscription();
+  subscriptions: Subscription[] = [];
 
-  constructor(private currency: CurrencyService) {
-    this.converter.valueChanges.subscribe((change) => {
-      this.exchengeRate = this.currency.getExchangeRate(
-        this.converter.controls.firstCurrency.getRawValue(),
-        this.converter.controls.secondCurrency.getRawValue()
-      );
-    });
-  }
+  constructor(private currency: CurrencyService) {}
 
   ngOnInit(): void {
-    this.subscription = this.currency.currencySubject.subscribe((rates) => {
-      this.exchengeRate = this.currency.getExchangeRate('UAH', 'USD');
-      this.currencyExchangeRate = rates;
-      this.setSecondCurrency();
-    });
+    this.subscriptions.push(
+      this.converter.valueChanges.subscribe((change) => {
+        this.exchengeRate = this.currency.getExchangeRate(
+          this.converter.controls.firstCurrency.getRawValue(),
+          this.converter.controls.secondCurrency.getRawValue()
+        );
+      })
+    );
+    this.subscriptions.push(
+      this.currency.currencySubject.subscribe((rates) => {
+        this.exchengeRate = this.currency.getExchangeRate('UAH', 'USD');
+        this.currencyExchangeRate = rates;
+        this.setSecondCurrency();
+      })
+    );
   }
 
   exchengeFirstCurrency(amount: number | null | undefined) {
@@ -68,6 +71,8 @@ export class CurrencyConverterComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscriptions.forEach((el) => {
+      el.unsubscribe();
+    });
   }
 }

@@ -8,8 +8,16 @@ import { CurrencyService } from './services/currency.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  subscription: Subscription = new Subscription();
   title = 'Currency-Converter';
+  isLoaded = false;
+
   constructor(private currency: CurrencyService) {
     currency.fetchCurrencyExchangeRate();
+    this.currency.currencySubject.subscribe((rates) => {
+      if (rates.success) {
+        this.isLoaded = true;
+      }
+    });
   }
 }

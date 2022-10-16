@@ -1,2 +1,14 @@
 <app-header></app-header>
-<app-currency-converter></app-currency-converter>
+<app-currency-converter *ngIf="isLoaded"></app-currency-converter>
+<div *ngIf="!isLoaded">
+  <div class="lds-roller">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
