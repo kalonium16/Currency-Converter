@@ -33,8 +33,8 @@ export class CurrencyConverterComponent implements OnInit, OnDestroy {
     this.subscription = this.currency.currencySubject.subscribe((rates) => {
       this.exchengeRate = this.currency.getExchangeRate('UAH', 'USD');
       this.currencyExchangeRate = rates;
+      this.setSecondCurrency();
     });
-    this.setSecondCurrency();
   }
 
   exchengeFirstCurrency(amount: number | null | undefined) {

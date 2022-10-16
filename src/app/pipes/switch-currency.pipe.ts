@@ -6,6 +6,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class SwitchCurrencyPipe implements PipeTransform {
   transform(value: number): number {
+    if (value === 0) {
+      return 0;
+    }
     return 1 / value;
   }
 }
